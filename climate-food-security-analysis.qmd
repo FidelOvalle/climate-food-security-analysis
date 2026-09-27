@@ -1,0 +1,321 @@
+---
+title: "Climate change, tree loss, and food security"
+author: "Fidel Ovalle, Sam Reffuge, and Zoey Ziegler"
+format: html
+editor: source
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE, fig.height = 4, fig.width = 6 )
+```
+
+
+```{r}
+library(tidyverse) 
+library(knitr)
+```
+
+
+```{r}
+#Zoey's dataset tidying
+
+#https://stackoverflow.com/questions/24172111/change-the-blank-cells-to-na
+#https://r4ds.hadley.nz/strings.html
+#notes and previous assignments
+food_security <- read.csv("FAOSTAT_data_en_5-2-2026.csv", na.strings = "") 
+
+food_security_tidy <- food_security |> select(Area, Item, Year, Value) |> mutate(Year= str_sub(Year,1,4)) |> pivot_wider(names_from = Item, values_from = Value) |> select(Area, Year, `Gross domestic product per capita, PPP, (constant 2021 international $)`,`Prevalence of undernourishment (percent) (3-year average)`, `Number of people undernourished (million) (3-year average)`) |> mutate(Year=as.numeric(Year))
+```
+
+```{r}
+#Fidel's Tidied Dataset
+Deforestation <- read.csv("treecover_loss_by_region__ha.csv")
+Countries <- read.csv("Countries.csv") |> select(Country, Code)
+Deforestation <- Deforestation |> rename(
+  country = iso, year = umd_tree_cover_loss__year, tree_loss_ha = umd_tree_cover_loss__ha, emissions_Mg = gfw_gross_emissions_co2e_all_gases__Mg) |> 
+  select(country, year, tree_loss_ha) |> 
+  left_join(Countries, by=c("country" = "Code"))
+```
+
+```{r}
+#Sam's Tidy Data
+ACO2Big <- read_csv("Agrofood_co2_emission.csv")
+
+ACO2 <- ACO2Big |> select(Area, Year, Forestland, `Food Household Consumption`, `Food Retail`, IPPU, `Rural population`, `Urban population`, `Total Population - Male`, `Total Population - Female`, total_emission, `Average Temperature °C`)
+
+ACO2 <- ACO2 |>
+  rename(
+    Country = Area,
+    FConsumption = `Food Household Consumption`,
+    MPopulation = `Total Population - Male`,
+    FPopulation = `Total Population - Female`,
+    CO2emissions = total_emission,
+    AvTemp = `Average Temperature °C`
+  ) |>
+  mutate(Country = str_remove(Country, "of America"))
+```
+
+```{r}
+#RO (Sam and Fidel) Dataset
+Deforestation_ACO2 <- left_join(Deforestation, ACO2, by = c("Country" = "Country", "year" = "Year"))
+```
+
+```{r}
+#ROZ (Sam, Fidel, and Zoey) Dataset
+final_joined_dataset <- Deforestation_ACO2 |> left_join(food_security_tidy, by=c("Country"="Area", "year"="Year"))
+```
+
+Introduction
+
+
+  Over the past few decades, climate change and the degradation of the environment have become some of the most important challenges. Increasing CO2 emissions, rising temperatures, tree loss, and food insecurity are interconnected issues that affect countries around the world. This project looks into certain stigmas related to these topics, whether that being that higher CO2 emissions are connected to increased temperature, how tree loss affects the CO2 emissions greatly, and how these environmental issues relate to food production and food insecurity across the world. Understanding these relationships is important because environmental changes can directly impact ecosystems, agriculture, economy, and the health of humans.
+  The goal of this report is to demonstrate some of the connections between climate change, tree loss, and food security. Our focus is agriculture; we examine total carbon emissions from agriculture, food consumption emissions, and food production measures. We will first visualize climate change trends and how they relate to other environmental changes like tree loss. Then we will add in human impacts like food consumption emissions and population trends. Finally, we tie all issues together by looking at connections between food production, environmental change, and undernourishment. There is a delicate balance between environmental and human needs. Examining the connections between the two, through agriculture, is vital if we are to create a sustainable, thriving world. 
+
+Figure 1
+
+
+```{r}
+ggplot(final_joined_dataset,
+       aes(x = CO2emissions,
+           y = AvTemp)) +
+  geom_point(alpha = 0.5, color = "darkgreen") +
+  scale_x_log10()+
+  labs(
+    title = "CO2 Emissions vs Average Temperature",
+    x = "CO2 Emissions",
+    y = "Average Temperature Change (°C)",
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+  This graph displays the relationship between agricultural CO2 emissions and average temperature change across countries from 2001 to 2020. Each point represents a country-year observation, with CO2 emissions shown on a logarithmic scale to better display the large variation in emission levels between countries. Most observations are condensed between moderate CO2 emission values and temperature changes between approximately 0.5°C and 1.5°C. The graph suggests that countries with higher CO2 emissions often experience positive temperature changes, although the relationship does not appear perfectly linear.
+  
+  The scatterplot also shows a noticeable spread in temperature change values at similar CO2 emission levels, showing that additional environmental or geographic factors may influence temperature changes beyond emissions alone. A few countries with really high emissions appear on the far right side of the graph, showing how emission levels vary greatly across nations. Overall, the figure suggests a general positive association between agricultural CO2 emissions and temperature change while also showing the complexity of climate related patterns across countries and years (specifically from 2001 to 2020 in this case).
+
+Figure 2
+
+
+```{r}
+top_tree_loss <- final_joined_dataset |>
+  group_by(country) |>
+  summarize(
+    avg_tree_loss = mean(tree_loss_ha, na.rm = TRUE),
+    avg_temp_change = mean(AvTemp, na.rm = TRUE)
+  ) |>
+  filter(!is.nan(avg_temp_change)) |> 
+  arrange(desc(avg_tree_loss)) |>
+  head(10)
+
+kable(
+  top_tree_loss,
+  caption = "Top 10 Countries by Average Tree Loss and Temperature Change"
+)
+```
+
+  This table displays the top 10 countries with the highest average tree loss along with their corresponding average temperature change values from 2001 to 2020. Russia, Brazil, and Canada show the highest levels of average tree loss in the dataset, with all three countries also experiencing positive average temperature changes over the same period. The table highlights that countries with substantial forest loss are located across different regions of the world, suggesting that tree loss is a widespread global issue rather than one limited to a single geographic area.
+  
+  The results also suggest that many countries with high levels of tree loss experienced noticeable increases in average temperature change. For example, Russia and Sweden both show relatively high temperature increases alongside significant forest loss values. While the table does not prove a direct causal relationship, it demonstrates a potential association between deforestation and rising temperatures. Overall, the table emphasizes the importance of forests in global climate systems and highlights how environmental changes may be connected across countries over time.
+
+Figure 3
+
+
+```{r, fig.width=5, fig.height=4}
+library(dplyr)
+library(ggplot2)
+library(scales)
+Continents_countries <- read_csv("Countries by continents.csv")
+final_joined_dataset_sam <- final_joined_dataset |> left_join(Continents_countries, by="Country")
+
+continent_food <- final_joined_dataset_sam |>
+  filter(
+    !is.na(Continent),
+    year >= 2001,
+    year <= 2020
+  ) |>
+  group_by(Continent, year) |>
+  summarise(
+    FoodConsumption = sum(FConsumption, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+ggplot(continent_food,
+       aes(x = year,
+           y = FoodConsumption)) +
+  geom_line(color = "pink", linewidth = 1.2) +
+  facet_wrap(~Continent,
+             scales = "free_y",
+             ncol = 2) +
+  labs(
+    title = "Food Consumption Emissions",
+    x = "Year",
+    y = "Food Consumption Emissions"
+  ) +
+  scale_y_continuous(labels = comma) +
+  theme_minimal()
+```
+
+  There is a rise in food consumption emissions across Asia, Africa, and South America, but the increase varies by continent. In Asia, there is a steady, steep increase in emissions, and Asia outclasses every other continent in emission rates by several thousand tons; it peaks at around 800,000 tons/year. As the most populous world region, with billions of mouths to feed, it is no surprise that it would be high, but there may be a more modern push to handle emissions, with many Asian countries beginning to enact sustainability initiatives as their populations grow. Africa has also seen a steady rise in emissions over the years, but it is in the mid-to-low range among continents overall, peaking in 2020 at around 63,000 tons/year. This is likely due to less reliance on intensive agricultural practices, and industries that do not specialize in dairy or meat, such as exported ground nuts. South America, similar to Africa, has lower emissions and a steadier increase before declining in the late 2010s. This is likely because of increased deforestation practices to make room for farmland and pastures.
+	Oceania is the most erratic region in terms of emissions, peaking in 2009 before declining, and then dropping significantly in 2014. Over the past several years, its emissions have fluctuated the most; however, Oceania has the lowest emissions overall compared with other regions of the world. This is likely because Oceania produces little in agriculture, and its industries (such as fishing) do not contribute much to emissions. 
+	North America and Europe are both declining in food consumption emissions. North America, specifically, has limited fluctuation but is declining, being in the midrange of emissions by continent. Considering North America’s reliance on agriculture and the meat/dairy industries, and its having nowhere near the output needed by Asia, but this is relatively unsurprising. Contributing to Asia’s large output may be America’s reliance on agricultural exports to Asia and Africa. The overall large quantity of emissions may be related to America’s propensity for food waste and loss. Europe, then, struggled to get a handle on its emissions—which were on the higher end overall—but began a downward trend in the mid 2010s. From then on, it has remained relatively low, and most of their emissions likely stem from a mix of advanced supply chain logistics and the sweeping farmlands outside urban cores.
+
+Figure 4
+
+
+```{r, fig.width=9, fig.height=4}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(scales)
+
+continent_urban_rural <- final_joined_dataset_sam |>
+  filter(
+    !is.na(Continent),
+    year >= 2001,
+    year <= 2020
+  ) |>
+  group_by(Continent, year) |>
+  summarise(
+    RuralPopulation = sum(`Rural population`, na.rm = TRUE),
+    UrbanPopulation = sum(`Urban population`, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  pivot_longer(
+    cols = c(RuralPopulation, UrbanPopulation),
+    names_to = "PopulationType",
+    values_to = "Population"
+  )
+
+ggplot(continent_urban_rural,
+       aes(x = year,
+           y = Population,
+           color = PopulationType)) +
+  geom_line(linewidth = 1.2) +
+  #ChatGPT may have helped me with the free y command
+  facet_wrap(~Continent, scales = "free_y") +
+  labs(
+    title = "Urban vs Rural Population by Continent (2001–2020)",
+    x = "Year",
+    y = "Population",
+    color = "Population Type"
+  ) +
+  scale_y_continuous(labels = comma) +
+  theme_minimal() +
+  theme(
+    strip.text = element_text(face = "bold"),
+    plot.title = element_text(face = "bold")
+  )
+```
+
+  Asia has seen a steady climb in its urban population over the past two decades, no doubt due to China’s urbanization incentives and the fact that most of India’s massive population lives in dense urban cores. However, many other countries have experienced intense urbanization (especially in West Asia), and Russia’s population is generally urban, while most of East Asia (especially Japan and Southeast Asian countries) lives in sprawling urban cities. Asia’s massive rural population has converged with its urban population in recent years, which is unique to this continent. Africa is the only other continent with a rural population larger than its urban population, and this trend continues to widen the gap between rural and urban populations. Both population metrics are rising at a fairly consistent pace, with many African capitals making developmental strides. Oceania is also seeing a rise in its rural population, perhaps due to growth in areas that are not typically considered urban. However, its urban population is growing steadily, with many cities in the region having large populations despite limited available land.
+	Europe and South America are, incredibly unsurprisingly, incredibly urban. South America, but especially Brazil, is well known for having the vast majority of its population living in coastal cities, with most inland areas being dense jungle or steep mountains. Europe is, generally, more mixed. However, rural areas tend to be large and sparsely populated, and European cities are known for being populous and vast. We suspect that North America’s data might be slightly inaccurate due to a problem with the data merge, as the total number is off, and we should expect to see a significantly higher rural population. Regardless, it shows a growing trend in urban life that aligns with real life.
+	Rising urban populations may be due to several factors reflected in the data. Deforestation, in particular, makes way for not only cities, but also the farmland to sustain growing populations. This, in turn, contributes to rising agricultural CO2 emissions and less foliage to reduce their impact. Rising food production, unevenly distributed to hungry mouths, will also increase the total population and contribute to larger cities. 
+
+Figure 5
+
+
+```{r, fig.height=5,fig.width=9}
+#R4DS book
+#notes
+#previous assignment code
+#https://r-statistics.co/ggplot2-Legends-in-R.html
+food_production <- read_csv("API_AG.PRD.FOOD.XD_DS2_en_csv_v2_20265.csv")
+
+food_production_tidy <- food_production |> rename("Country"=`Data Source`, "Country Code"=`World Development Indicators`) |> filter(!is.na(`...3`)) |> separate_wider_delim(`...3`, names = c("Indicator name", "Indicator code", "1960", "1961",	"1962",	"1963",	"1964",	"1965",	"1966",	"1967",	"1968",	"1969",	"1970",	"1971",	"1972",	"1973",	"1974",	"1975",	"1976",	"1977",	"1978",	"1979",	"1980",	"1981",	"1982",	"1983",	"1984",	"1985",	"1986",	"1987",	"1988",	"1989",	"1990",	"1991",	"1992",	"1993",	"1994",	"1995",	"1996",	"1997",	"1998",	"1999",	"2000",	"2001",	"2002",	"2003",	"2004",	"2005",	"2006",	"2007",	"2008",	"2009",	"2010",	"2011",	"2012",	"2013",	"2014",	"2015",	"2016",	"2017",	"2018",	"2019",	"2020",	"2021",	"2022"), delim = ",", too_many = "drop") |> filter(Country!="Country Name") |> select("Country", "Country Code", "1961",	"1962",	"1963",	"1964",	"1965",	"1966",	"1967",	"1968",	"1969",	"1970",	"1971",	"1972",	"1973",	"1974",	"1975",	"1976",	"1977",	"1978",	"1979",	"1980",	"1981",	"1982",	"1983",	"1984",	"1985",	"1986",	"1987",	"1988",	"1989",	"1990",	"1991",	"1992",	"1993",	"1994",	"1995",	"1996",	"1997",	"1998",	"1999",	"2000",	"2001",	"2002",	"2003",	"2004",	"2005",	"2006",	"2007",	"2008",	"2009",	"2010",	"2011",	"2012",	"2013",	"2014",	"2015",	"2016",	"2017",	"2018",	"2019",	"2020",	"2021",	"2022") |> pivot_longer(cols = starts_with(c("19","20")), names_to = "Year", values_to = "Food production index (2014-2016=100)") |> mutate(`Food production index (2014-2016=100)`=str_replace_all(`Food production index (2014-2016=100)`, "\"", "NA")) |> filter(Year>2000, Year<2021) |> mutate(Year=as.numeric(Year))
+ 
+final_joined_dataset_zoey <- final_joined_dataset |> filter(!is.na(Country)) |> filter(year!=2021,year!=2022,year!=2023,year!=2024,year!=2025) |> left_join(food_production_tidy, by=c("Country"="Country", "year"="Year", "country"="Country Code")) |> filter(!is.na(AvTemp)) |> mutate(`Number of people undernourished (million) (3-year average)`=str_remove(`Number of people undernourished (million) (3-year average)`, "<")) |> mutate(`Number of people undernourished (million) (3-year average)`=as.numeric(`Number of people undernourished (million) (3-year average)`)) |> mutate(`Food production index (2014-2016=100)`=as.numeric(`Food production index (2014-2016=100)`)) |> mutate(`Prevalence of undernourishment (percent) (3-year average)`=as.numeric(`Prevalence of undernourishment (percent) (3-year average)`)) |> mutate(`Gross domestic product per capita, PPP, (constant 2021 international $)`=as.numeric(`Gross domestic product per capita, PPP, (constant 2021 international $)`)) |> mutate(`Prevalence of undernourishment (percent) (3-year average)`=str_remove(`Prevalence of undernourishment (percent) (3-year average)`,"<")) |> filter(year<=2020,year>2014)
+
+
+
+ggplot(data = final_joined_dataset_zoey, 
+       aes(x=AvTemp, y=`Food production index (2014-2016=100)`,size = `Number of people undernourished (million) (3-year average)`))+
+         geom_point(alpha=0.5)+
+  geom_smooth(se=FALSE, show.legend = FALSE)+
+  facet_wrap(~year)+
+  scale_x_continuous(breaks = c(-1,0,1,2,3))+
+  scale_y_continuous(breaks = c(20,40,60,80,100,120,140,160)) +
+  labs(x="Average annual temperature increase (C)", caption="The correlation between temperature increase, food production, and undernourishment for 149 countries from 2015-2020 (NOTE: each point is a country)")+
+  theme_minimal()+
+  theme(legend.position = "bottom")
+```
+
+  The above figure shows the connection between food production and average temperature change in recent years (2015-2020). The number of people undernourished is represented by point size. The food production index can be defined as the volume of agricultural production of all food crops as compared to the 2014-2016 baseline of 100 (FAO). Undernourishment is defined as insufficient food consumption that prevents a normal life (“Indicator 2.1.1 - Prevalence...”). 2015 and 2016 have very flat trendlines which suggests that food production may not be responding to temperature change, but these years are also the baseline. 2017, 2018, 2019, and 2020 seem to have more variation and a slight downward trend. The countries with higher average temperature changes have a lower food production index. As shown in previous graphics and tables, climate change trends are seen clearly on this graph as well. All countries saw temperature increases each year. Most countries appear to have lower levels of undernourishment (50 million or lower); very few countries have high levels (greater than 150 million). These trends also shift when population trends shift.
+  
+  We hypothesized that as climate change causes more frequent and dramatic temperature changes, food production would be impacted. This theory is observed in the above graphic and supported by outside sources. Heat not only directly impacts crop yield, it also reduces productivity as farmers are unable to work in extreme conditions (Mishra). Though less clear in this graphic, when food production shifts, human lives are impacted.
+
+Figure 6
+
+
+```{r, fig.width=8}
+Continents_countries <- read_csv("Countries by continents.csv")
+
+final_joined_dataset_zoey_1 <- final_joined_dataset |> filter(!is.na(Country)) |> filter(year!=2021,year!=2022,year!=2023,year!=2024,year!=2025) |> left_join(food_production_tidy, by=c("Country"="Country", "year"="Year", "country"="Country Code")) |> filter(!is.na(AvTemp)) |> mutate(`Number of people undernourished (million) (3-year average)`=str_remove(`Number of people undernourished (million) (3-year average)`, "<")) |> mutate(`Number of people undernourished (million) (3-year average)`=as.numeric(`Number of people undernourished (million) (3-year average)`)) |> mutate(`Food production index (2014-2016=100)`=as.numeric(`Food production index (2014-2016=100)`)) |> mutate(`Prevalence of undernourishment (percent) (3-year average)`=as.numeric(`Prevalence of undernourishment (percent) (3-year average)`)) |> mutate(`Gross domestic product per capita, PPP, (constant 2021 international $)`=as.numeric(`Gross domestic product per capita, PPP, (constant 2021 international $)`)) |> mutate(`Prevalence of undernourishment (percent) (3-year average)`=str_remove(`Prevalence of undernourishment (percent) (3-year average)`,"<"))
+
+final_joined_dataset_zoey_2 <- final_joined_dataset_zoey_1 |> left_join(Continents_countries, by="Country") |> relocate("Continent", .before = "Forestland") |> group_by(Continent, year) |> summarise(`Average Tree Cover Loss`=mean(tree_loss_ha, na.rm=TRUE), 'Average Food Production Index'=mean(`Food production index (2014-2016=100)`, na.rm=TRUE))
+
+
+
+#https://www.statology.org/remove-legend-ggplot2/
+#https://r-statistics.co/ggplot2-Secondary-Axis.html
+#https://r-graph-gallery.com/line-chart-dual-Y-axis-ggplot2.html
+library(dplyr)
+library(patchwork)
+
+p1 <- ggplot(data = final_joined_dataset_zoey_2, aes(x=year, y=`Average Tree Cover Loss`, color=Continent))+
+  geom_line()+
+  scale_x_continuous(breaks = c(2001,2005,2010,2015,2020))+
+         labs(x="Year", y="Average tree cover loss (ha)")+
+         theme_minimal()+
+  theme(legend.position = "bottom")
+
+p2 <- ggplot(data = final_joined_dataset_zoey_2, aes(x=year, y=`Average Food Production Index`, color=Continent))+
+  geom_line()+
+  scale_x_continuous(breaks = c(2001,2005,2010,2015,2020))+
+         labs(x="Year", y="Average food production index", caption = "Average tree cover loss and food production index from 2001-2020 (NOTE: the baseline for the food production index is (2014-2016=100))")+
+         theme_minimal()+theme(legend.position = "none")
+
+p1+p2
+```
+
+  As we explore the connections between environmental change and its impact on food security, we must also consider tree loss. The above graph has average tree cover loss from 2001-2020 for the 6 continents on the left and average food production index from 2001-2020 for the 6 continents on the right. The tree cover loss measure includes human and other causes of loss, and examines natural and planted forests (“Global Forest Watch”). There was a steep increase in average tree cover loss for South America, Asia, Oceania, and other countries in 2016. Oceania has seen a dramatic increase in average tree cover loss from 2018 to 2020. Europe, Africa, and North America have consistent low tree cover loss over time. South America and other countries have very high levels of tree cover loss compared to the other continents. On the right plot, the average food production index for all continents and countries increases from 2001-2020. The lines converge from 2014-2016, which is the baseline range for the measure. After 2016, North America, South America, Europe, Oceania, and other countries experienced slower growth, while Africa and Asia continue to experience dramatic food production increases. The continuous increase in the average food production index may be attributed to natural improvements in technology and agricultural practices over time. 
+  
+  Our hypothesis was that increased tree cover loss leads to increased food production, as there is additional cleared land. However, it is difficult to see the connection between tree cover loss and food production in this graph because their measures are very different. Nevertheless, the topic of tree cover loss is very complicated. Forests are excellent carbon sinks and losing trees means less carbon is stored, which exacerbates climate change (Benschop). However, tree loss may mean more land is available for food production and many countries still struggle with food security. 
+
+Conclusion
+
+
+  Our report clearly demonstrates the delicate balance between human and environmental needs. Our environment is changing and this is especially apparent in the agricultural sector. Agricultural CO2 emissions are rising which leads to increased temperature changes. This pattern impacts food production. Countries that experienced more dramatic temperature increases saw a decreased food production index. This in turn affects the number of people undernourished. However, not only does producing food emit CO2, consuming food also emits as we see in the above graphic. Another relevant environmental change is tree loss. Tree loss exacerbates climate change, but it also means more developed land for people and agriculture. Population trends are yet another aspect to consider when examining relationships between the environment and humans. How do we keep our planet's natural systems in balance while building an equitable, thriving world through agriculture? This question will plague society for years to come and this report only just begins to visual the connections between environmental change and human quality of life. 
+  Future reports like this may focus on one specific topic and delve deeper into the details. This report presents initial, broad findings. Next time it might be more useful to include total global emissions instead of agricultural emissions. Another limitation to these graphics and report is that some data was excluded due to data joining from different sources. This report is not a complete picture of this topic as we are not expert data scientists and there may have been mistakes with data joining and tidying. 
+  
+Appendix
+
+
+Figure 5: The number of people undernourished for each country is based on a 3-year average for the individual years shown here. Additionally, some countries in the dataset had a value of <0.1 million people undernourished. To make data visualization more efficient, the ”<” were removed, so some countries with a value of 0.1 may actually have a lower value.
+
+Figure 6: The values for these graphics are averages for the continents for each year. Additionally, one limitation for the tree cover loss measure is that data collection methods changed after 2010.
+
+All figures: The 2001-2020 year range was used for the above figures because most of our original datasets began around 2001 and stopped around 2020.
+
+Data Sources
+
+
+https://www.kaggle.com/datasets/alessandrolobello/agri-food-co2-emission-dataset-forecasting-ml?resource=download
+
+https://www.globalforestwatch.org/dashboards/global/?widget=treeLossGlobal
+
+https://www.fao.org/faostat/en/#data/FS
+
+https://data.worldbank.org/indicator/AG.PRD.FOOD.XD
+
+https://www.kaggle.com/datasets/hserdaraltan/countries-by-continent
+
+(country code dataset from a previous assignment)
+
+Sources
+
+
+Benschop, Thijs. (2023). "Deforestation: Accelerating climate change and threatening biodiversity." World Bank Blogs, World Bank Group, https://blogs.worldbank.org/en/opendata/deforestation-accelerating-climate-change-and-threatening-biodiversity
+
+Mishra, Vibhu. (2026). "Extreme heat pushing global food systems to the brink, UN agencies warn." United Nations News, United Nations, https://news.un.org/en/story/2026/04/1167352
+
+"Indicator 2.1.1 - Prevalence of undernourishment.", SDG Indicators Data Portal, Food and Agriculture Organization of the United Nations, https://www.fao.org/sustainable-development-goals-data-portal/data/indicators/2.1.1-prevalence-of-undernourishment/en

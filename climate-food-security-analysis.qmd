@@ -1,7 +1,9 @@
 ---
 title: "Climate change, tree loss, and food security"
 author: "Fidel Ovalle, Sam Reffuge, and Zoey Ziegler"
-format: html
+format: 
+  html:
+    embed-resources: true
 editor: source
 ---
 

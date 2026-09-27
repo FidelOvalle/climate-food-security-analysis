@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Fidel Ovalle, Sam Reffuge, and Zoey Ziegler">
+
+<title>Climate change, tree loss, and food security</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="Final_Report_Template_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Final_Report_Template_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Final_Report_Template_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Final_Report_Template_files/libs/quarto-html/popper.min.js"></script>
+<script src="Final_Report_Template_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Final_Report_Template_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Final_Report_Template_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Final_Report_Template_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Final_Report_Template_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Final_Report_Template_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Final_Report_Template_files/libs/bootstrap/bootstrap-138a6193a3bd40baf1e627da441a4734.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Climate change, tree loss, and food security</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Fidel Ovalle, Sam Reffuge, and Zoey Ziegler </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Introduction</p>
+<p>Over the past few decades, climate change and the degradation of the environment have become some of the most important challenges. Increasing CO2 emissions, rising temperatures, tree loss, and food insecurity are interconnected issues that affect countries around the world. This project looks into certain stigmas related to these topics, whether that being that higher CO2 emissions are connected to increased temperature, how tree loss affects the CO2 emissions greatly, and how these environmental issues relate to food production and food insecurity across the world. Understanding these relationships is important because environmental changes can directly impact ecosystems, agriculture, economy, and the health of humans. The goal of this report is to demonstrate some of the connections between climate change, tree loss, and food security. Our focus is agriculture; we examine total carbon emissions from agriculture, food consumption emissions, and food production measures. We will first visualize climate change trends and how they relate to other environmental changes like tree loss. Then we will add in human impacts like food consumption emissions and population trends. Finally, we tie all issues together by looking at connections between food production, environmental change, and undernourishment. There is a delicate balance between environmental and human needs. Examining the connections between the two, through agriculture, is vital if we are to create a sustainable, thriving world.</p>
+<p>Figure 1</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_Report_Template_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This graph displays the relationship between agricultural CO2 emissions and average temperature change across countries from 2001 to 2020. Each point represents a country-year observation, with CO2 emissions shown on a logarithmic scale to better display the large variation in emission levels between countries. Most observations are condensed between moderate CO2 emission values and temperature changes between approximately 0.5°C and 1.5°C. The graph suggests that countries with higher CO2 emissions often experience positive temperature changes, although the relationship does not appear perfectly linear.</p>
+<p>The scatterplot also shows a noticeable spread in temperature change values at similar CO2 emission levels, showing that additional environmental or geographic factors may influence temperature changes beyond emissions alone. A few countries with really high emissions appear on the far right side of the graph, showing how emission levels vary greatly across nations. Overall, the figure suggests a general positive association between agricultural CO2 emissions and temperature change while also showing the complexity of climate related patterns across countries and years (specifically from 2001 to 2020 in this case).</p>
+<p>Figure 2</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Top 10 Countries by Average Tree Loss and Temperature Change</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">country</th>
+<th style="text-align: right;">avg_tree_loss</th>
+<th style="text-align: right;">avg_temp_change</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">RUS</td>
+<td style="text-align: right;">3684896.2</td>
+<td style="text-align: right;">1.7680583</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BRA</td>
+<td style="text-align: right;">3047407.9</td>
+<td style="text-align: right;">1.0789792</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CAN</td>
+<td style="text-align: right;">2754906.3</td>
+<td style="text-align: right;">1.3224875</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IDN</td>
+<td style="text-align: right;">1324997.5</td>
+<td style="text-align: right;">0.7313292</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CHN</td>
+<td style="text-align: right;">536700.7</td>
+<td style="text-align: right;">1.1680292</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MYS</td>
+<td style="text-align: right;">391072.4</td>
+<td style="text-align: right;">1.0758667</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AUS</td>
+<td style="text-align: right;">384097.5</td>
+<td style="text-align: right;">0.9207750</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PRY</td>
+<td style="text-align: right;">294750.8</td>
+<td style="text-align: right;">0.7496542</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ARG</td>
+<td style="text-align: right;">286665.0</td>
+<td style="text-align: right;">0.6029208</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SWE</td>
+<td style="text-align: right;">256732.7</td>
+<td style="text-align: right;">1.5642208</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>This table displays the top 10 countries with the highest average tree loss along with their corresponding average temperature change values from 2001 to 2020. Russia, Brazil, and Canada show the highest levels of average tree loss in the dataset, with all three countries also experiencing positive average temperature changes over the same period. The table highlights that countries with substantial forest loss are located across different regions of the world, suggesting that tree loss is a widespread global issue rather than one limited to a single geographic area.</p>
+<p>The results also suggest that many countries with high levels of tree loss experienced noticeable increases in average temperature change. For example, Russia and Sweden both show relatively high temperature increases alongside significant forest loss values. While the table does not prove a direct causal relationship, it demonstrates a potential association between deforestation and rising temperatures. Overall, the table emphasizes the importance of forests in global climate systems and highlights how environmental changes may be connected across countries over time.</p>
+<p>Figure 3</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_Report_Template_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There is a rise in food consumption emissions across Asia, Africa, and South America, but the increase varies by continent. In Asia, there is a steady, steep increase in emissions, and Asia outclasses every other continent in emission rates by several thousand tons; it peaks at around 800,000 tons/year. As the most populous world region, with billions of mouths to feed, it is no surprise that it would be high, but there may be a more modern push to handle emissions, with many Asian countries beginning to enact sustainability initiatives as their populations grow. Africa has also seen a steady rise in emissions over the years, but it is in the mid-to-low range among continents overall, peaking in 2020 at around 63,000 tons/year. This is likely due to less reliance on intensive agricultural practices, and industries that do not specialize in dairy or meat, such as exported ground nuts. South America, similar to Africa, has lower emissions and a steadier increase before declining in the late 2010s. This is likely because of increased deforestation practices to make room for farmland and pastures. Oceania is the most erratic region in terms of emissions, peaking in 2009 before declining, and then dropping significantly in 2014. Over the past several years, its emissions have fluctuated the most; however, Oceania has the lowest emissions overall compared with other regions of the world. This is likely because Oceania produces little in agriculture, and its industries (such as fishing) do not contribute much to emissions. North America and Europe are both declining in food consumption emissions. North America, specifically, has limited fluctuation but is declining, being in the midrange of emissions by continent. Considering North America’s reliance on agriculture and the meat/dairy industries, and its having nowhere near the output needed by Asia, but this is relatively unsurprising. Contributing to Asia’s large output may be America’s reliance on agricultural exports to Asia and Africa. The overall large quantity of emissions may be related to America’s propensity for food waste and loss. Europe, then, struggled to get a handle on its emissions—which were on the higher end overall—but began a downward trend in the mid 2010s. From then on, it has remained relatively low, and most of their emissions likely stem from a mix of advanced supply chain logistics and the sweeping farmlands outside urban cores.</p>
+<p>Figure 4</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_Report_Template_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Asia has seen a steady climb in its urban population over the past two decades, no doubt due to China’s urbanization incentives and the fact that most of India’s massive population lives in dense urban cores. However, many other countries have experienced intense urbanization (especially in West Asia), and Russia’s population is generally urban, while most of East Asia (especially Japan and Southeast Asian countries) lives in sprawling urban cities. Asia’s massive rural population has converged with its urban population in recent years, which is unique to this continent. Africa is the only other continent with a rural population larger than its urban population, and this trend continues to widen the gap between rural and urban populations. Both population metrics are rising at a fairly consistent pace, with many African capitals making developmental strides. Oceania is also seeing a rise in its rural population, perhaps due to growth in areas that are not typically considered urban. However, its urban population is growing steadily, with many cities in the region having large populations despite limited available land. Europe and South America are, incredibly unsurprisingly, incredibly urban. South America, but especially Brazil, is well known for having the vast majority of its population living in coastal cities, with most inland areas being dense jungle or steep mountains. Europe is, generally, more mixed. However, rural areas tend to be large and sparsely populated, and European cities are known for being populous and vast. We suspect that North America’s data might be slightly inaccurate due to a problem with the data merge, as the total number is off, and we should expect to see a significantly higher rural population. Regardless, it shows a growing trend in urban life that aligns with real life. Rising urban populations may be due to several factors reflected in the data. Deforestation, in particular, makes way for not only cities, but also the farmland to sustain growing populations. This, in turn, contributes to rising agricultural CO2 emissions and less foliage to reduce their impact. Rising food production, unevenly distributed to hungry mouths, will also increase the total population and contribute to larger cities.</p>
+<p>Figure 5</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_Report_Template_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The above figure shows the connection between food production and average temperature change in recent years (2015-2020). The number of people undernourished is represented by point size. The food production index can be defined as the volume of agricultural production of all food crops as compared to the 2014-2016 baseline of 100 (FAO). Undernourishment is defined as insufficient food consumption that prevents a normal life (“Indicator 2.1.1 - Prevalence…”). 2015 and 2016 have very flat trendlines which suggests that food production may not be responding to temperature change, but these years are also the baseline. 2017, 2018, 2019, and 2020 seem to have more variation and a slight downward trend. The countries with higher average temperature changes have a lower food production index. As shown in previous graphics and tables, climate change trends are seen clearly on this graph as well. All countries saw temperature increases each year. Most countries appear to have lower levels of undernourishment (50 million or lower); very few countries have high levels (greater than 150 million). These trends also shift when population trends shift.</p>
+<p>We hypothesized that as climate change causes more frequent and dramatic temperature changes, food production would be impacted. This theory is observed in the above graphic and supported by outside sources. Heat not only directly impacts crop yield, it also reduces productivity as farmers are unable to work in extreme conditions (Mishra). Though less clear in this graphic, when food production shifts, human lives are impacted.</p>
+<p>Figure 6</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_Report_Template_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As we explore the connections between environmental change and its impact on food security, we must also consider tree loss. The above graph has average tree cover loss from 2001-2020 for the 6 continents on the left and average food production index from 2001-2020 for the 6 continents on the right. The tree cover loss measure includes human and other causes of loss, and examines natural and planted forests (“Global Forest Watch”). There was a steep increase in average tree cover loss for South America, Asia, Oceania, and other countries in 2016. Oceania has seen a dramatic increase in average tree cover loss from 2018 to 2020. Europe, Africa, and North America have consistent low tree cover loss over time. South America and other countries have very high levels of tree cover loss compared to the other continents. On the right plot, the average food production index for all continents and countries increases from 2001-2020. The lines converge from 2014-2016, which is the baseline range for the measure. After 2016, North America, South America, Europe, Oceania, and other countries experienced slower growth, while Africa and Asia continue to experience dramatic food production increases. The continuous increase in the average food production index may be attributed to natural improvements in technology and agricultural practices over time.</p>
+<p>Our hypothesis was that increased tree cover loss leads to increased food production, as there is additional cleared land. However, it is difficult to see the connection between tree cover loss and food production in this graph because their measures are very different. Nevertheless, the topic of tree cover loss is very complicated. Forests are excellent carbon sinks and losing trees means less carbon is stored, which exacerbates climate change (Benschop). However, tree loss may mean more land is available for food production and many countries still struggle with food security.</p>
+<p>Conclusion</p>
+<p>Our report clearly demonstrates the delicate balance between human and environmental needs. Our environment is changing and this is especially apparent in the agricultural sector. Agricultural CO2 emissions are rising which leads to increased temperature changes. This pattern impacts food production. Countries that experienced more dramatic temperature increases saw a decreased food production index. This in turn affects the number of people undernourished. However, not only does producing food emit CO2, consuming food also emits as we see in the above graphic. Another relevant environmental change is tree loss. Tree loss exacerbates climate change, but it also means more developed land for people and agriculture. Population trends are yet another aspect to consider when examining relationships between the environment and humans. How do we keep our planet’s natural systems in balance while building an equitable, thriving world through agriculture? This question will plague society for years to come and this report only just begins to visual the connections between environmental change and human quality of life. Future reports like this may focus on one specific topic and delve deeper into the details. This report presents initial, broad findings. Next time it might be more useful to include total global emissions instead of agricultural emissions. Another limitation to these graphics and report is that some data was excluded due to data joining from different sources. This report is not a complete picture of this topic as we are not expert data scientists and there may have been mistakes with data joining and tidying.</p>
+<p>Appendix</p>
+<p>Figure 5: The number of people undernourished for each country is based on a 3-year average for the individual years shown here. Additionally, some countries in the dataset had a value of &lt;0.1 million people undernourished. To make data visualization more efficient, the ”&lt;” were removed, so some countries with a value of 0.1 may actually have a lower value.</p>
+<p>Figure 6: The values for these graphics are averages for the continents for each year. Additionally, one limitation for the tree cover loss measure is that data collection methods changed after 2010.</p>
+<p>All figures: The 2001-2020 year range was used for the above figures because most of our original datasets began around 2001 and stopped around 2020.</p>
+<p>Data Sources</p>
+<p>https://www.kaggle.com/datasets/alessandrolobello/agri-food-co2-emission-dataset-forecasting-ml?resource=download</p>
+<p>https://www.globalforestwatch.org/dashboards/global/?widget=treeLossGlobal</p>
+<p>https://www.fao.org/faostat/en/#data/FS</p>
+<p>https://data.worldbank.org/indicator/AG.PRD.FOOD.XD</p>
+<p>https://www.kaggle.com/datasets/hserdaraltan/countries-by-continent</p>
+<p>(country code dataset from a previous assignment)</p>
+<p>Sources</p>
+<p>Benschop, Thijs. (2023). “Deforestation: Accelerating climate change and threatening biodiversity.” World Bank Blogs, World Bank Group, https://blogs.worldbank.org/en/opendata/deforestation-accelerating-climate-change-and-threatening-biodiversity</p>
+<p>Mishra, Vibhu. (2026). “Extreme heat pushing global food systems to the brink, UN agencies warn.” United Nations News, United Nations, https://news.un.org/en/story/2026/04/1167352</p>
+<p>“Indicator 2.1.1 - Prevalence of undernourishment.”, SDG Indicators Data Portal, Food and Agriculture Organization of the United Nations, https://www.fao.org/sustainable-development-goals-data-portal/data/indicators/2.1.1-prevalence-of-undernourishment/en</p>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
